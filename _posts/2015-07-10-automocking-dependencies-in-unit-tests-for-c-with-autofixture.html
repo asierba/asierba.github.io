@@ -1,0 +1,90 @@
+---
+layout: post
+title: Automocking dependencies in unit tests for C# with AutoFixture
+date: 2015-07-10 18:45:26.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- c#
+- mock
+- Software Craftsmanship
+tags:
+- SOLID
+---
+<p>If you have been unit testing for a while you would have come to the following problem:</p>
+<p>You have a class that talks to different classes. These dependencies are injected to your class through the constructor. You would have a test like the this:</p>
+{% highlight csharp %}
+[Fact]
+public void SomeTest()
+{
+        var dependency1stub = new Mock<IDependecy1>();
+        var dependency2mock = new Mock<IDependecy2>();
+        dependency1stub.Setup(x => x.SomeQuery()).Returns(2);
+        
+        var sut = new SUT(dependency1stub.Object, dependency2mock.Object);
+        
+        Assert.Equal(4, sut.GetDoubleValue(2));
+        dependency2mock.Verify(x => x.SomeComand());
+}
+{% endhighlight %}
+
+<p>I guess you would have more than one test against this class, probably many. Each of them calling to the constructor of the object with its dependencies.</p>
+<p>Now, what happens if you change the dependencies? What happens if you add one dependency extra to this class? You will have to go one by one through all the tests and change the line of code where  <em>new SUT(...)</em>  is present.</p>
+<p>var sut = new SUT(dependency1stub.Object, dependency2mock.Object, <strong>dependency3mock.Object</strong>);</p>
+<p>What if you have dozens or hundreds of tests against that class?? That could be kind of painful! I can already heard you saying..</p>
+<blockquote><p>test are slowing me down!</p></blockquote>
+<p>Well, wait! Bear with me.</p>
+<p>First thing to notice here is that using the <a href="http://ardalis.com/new-is-glue">"new" keyword is a code smell</a> and should be avoided when possible. <strong>Each time you use <em>new </em>you are coupling that code to a particular implementation</strong>. In this case, we are coupling the tests to construction of the system under test and ultimately to the de injection of its dependencies. We should avoid this as much as possible. Let's see how we can fix this.</p>
+<p>The easiest approach would be to create a test setup and move the object initialisation there, this way that code will get shared through all the methods in the test class. If dependencies change we will have to update JUST the code there.</p>
+
+{% highlight csharp %}
+private Mock<IDependecy1> _dependency1stub;
+private Mock<IDependecy2> _dependency2mock;
+private SUT _sut;
+
+public Tests() // Test setup in xUnit is the constructor
+{
+        _dependency1stub = new Mock<IDependecy1>();
+        _dependency2mock = new Mock<IDependecy2>();
+
+        _sut = new SUT(_dependency1stub.Object, _dependency2mock.Object);
+}
+
+[Fact]
+public void SomeTest()
+{
+        _dependency1stub.Setup(x => x.SomeQuery()).Returns(2);
+
+        Assert.Equal(4, _sut.GetDoubleValue(2));
+        _dependency2mock.Verify(x => x.SomeComand());
+}
+{% endhighlight %}
+
+<p>However, with this approach still we will have to change code. It's not nice, <strong>our code is not open for extesion and closed for modification</strong>. We are violating the <a href="http://www.objectmentor.com/resources/articles/ocp.pdf">Open-Closed principle</a>.<br />
+Also, what if your system under test is called from different test classes? You will still have to change all <em>setups </em>for those test classes.<br />
+You can improve things using a <a href="http://blog.ploeh.dk/2009/02/13/SUTFactory/">SUT factory</a>. But still you will have to change the code inside the factory each time.</p>
+<p>A better approach would be to use a external library like <a href="https://github.com/AutoFixture/AutoFixture">Autofixture</a> that can automock and autoinject those dependencies. We will <strong>let Autofixture to do the job of object initialisation for us</strong>.</p>
+
+{% highlight csharp %}
+[Fact]
+public void WithAutoFixture()
+{
+        var fixture = new Fixture();
+        fixture.Customize(new AutoMoqCustomization()); // set up automocking
+
+        var dependency1stub = fixture.Freeze<Mock<IDependecy1>>();
+        var dependency2mock = fixture.Freeze<Mock<IDependecy2>>();
+        dependency1stub.Setup(x => x.SomeQuery()).Returns(2);
+
+        var sut = fixture.Create<SUT>(); // initialise object with mocked dependencies
+
+        Assert.Equal(4, sut.GetDoubleValue(2));
+        dependency2mock.Verify(x => x.SomeComand());
+}
+{% endhighlight %}
+
+<p>If you now add a new dependency to the constructor of the SUT this test still will compile and pass. You don't care any more about object construction and your tests are not fragile any more!<br />
+So you can keep doing TDD and stop complaining how tests are slowing you down!</p>
+<p>Happy coding! :)</p>
+<p><em>PS I know you can also do this in Machine.Specifications with <a href="https://www.nuget.org/packages/Machine.Specifications.AutoMocking/">Machine.Specifications.AutoMocking </a> or <a href="http://(https://github.com/machine/machine.fakes)">Machines.Fakes</a>. I highly recommend the last one if you are using Machine.Specifications.</em></p>

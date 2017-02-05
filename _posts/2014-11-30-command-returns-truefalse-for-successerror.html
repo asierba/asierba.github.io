@@ -1,0 +1,45 @@
+---
+layout: post
+title: Command returns true/false for success/error
+date: 2014-11-30 20:35:51.000000000 +00:00
+type: post
+published: true
+status: publish
+categories:
+- Antipatterns
+tags: []
+---
+<p>I've seen this kind of pattern usually when working with web services.</p>
+<p>Imaging the following piece of code:</p>
+{% highlight csharp %}
+public bool RunCommand()
+{
+    
+    // .. Some logic ..
+    
+    return true; // success
+    
+}
+{% endhighlight %}
+<p>Basically we have a method in a class that executes some logic, if this is successful it returns a <em>true</em>, if not a <em>false</em>. At first you would say this make sense, right?</p>
+<p><span style="color:#999999;">It kind of reminds me the days when I was learning C :)</span></p>
+<p>But this is just over-complicating things. Any client of this method will have to add a check.</p>
+
+{% highlight csharp %}
+if(RunCommand()) {
+  // everything good
+
+// Show user success message
+
+} else {
+
+// error!
+
+// show user something went wrong
+
+}
+{% endhighlight %}
+
+<p>Why not just assume that the method is going to be execute successfully? If not just throw and exception! Then just handle that exception. <strong>Simple</strong>!</p>
+<p>Just adding the true/false return for success/error is basically re-implementing exceptions. Well, it's even worse. Exceptions are explicit, they <em>mean</em> that something went wrong, they even have a custom error message. A boolean just means that.. a boolean: true or false, it's open to interpretations. When we get a false it could mean anything, no error message, no custom exception.</p>
+<p>Also returning values from <em>command</em> methods is a bad practice. You should have two kind of methods: querys that return values but don't change anything in your system and commands that change something but return nothing! This is known as CQS or <a href="http://martinfowler.com/bliki/CommandQuerySeparation.html">Command and Query Separation</a>.</p>

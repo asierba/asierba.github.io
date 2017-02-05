@@ -1,0 +1,30 @@
+---
+layout: post
+title: Beware of optimisation
+date: 2013-01-15 22:53:14.000000000 +00:00
+type: post
+published: true
+status: publish
+categories:
+- Software Craftsmanship
+tags:
+- Clean Code
+- Red grade
+---
+<p>In my <em>short</em> career as a developer I have heard many many times the word <strong>optimisation</strong> and I am already sick of it...</p>
+<ul>
+<li>You have to <strong>optimise</strong> your code so it runs faster.</li>
+<li>Do not use an ORM, just write SQL in your code. If  you use store procedures even better! You have to <b>optimise</b>!</li>
+<li>We will add all of this extra attributes in our objects. We don't need them right now, but we will do in the future. Is more <strong>effective</strong> doing it now that having to change the code in a later stage.</li>
+<li>We need to create a caching system in our application so we <strong>optimise</strong> the times we access to the database.</li>
+<li>etc.</li>
+</ul>
+<p>At first you will think all of this is good. Why don't we want to optimise? Optimisation is good, really. Makes our systems faster, better! Doesn't it?</p>
+<p>Well yes and no. We should be careful with optimisations, they add extra complexity to our systems, and <a href="http://asierba.wordpress.com/2013/01/02/kiss-keep-it-simple-stupid/">we should aim for simplicity</a>. Before optimising you should ask yourself: <em>Do I really really really need that optimisation??</em></p>
+<blockquote><p>More computing sins are committed in the name of efficiency (without necessarily achieving it) than for any other single reason - including blind stupidity.</p>
+<p>W.A. Wulf</p></blockquote>
+<p>If you want to optimise check first the benefit you will get from it.  <a href="http://geekswithblogs.net/akraus1/archive/2012/10/27/151086.aspx">You shouldn't be optimising without measuring</a>.  Use a profiler and measure it. Is it still worth it? If yes, go for it.</p>
+<p>In my case, I try to avoid optimisation as much as possible, <a href="http://en.wikipedia.org/wiki/Lean_software_development#Decide_as_late_as_possible">do that decision as late as possible</a>. Don't  worry, when you really need it, you will optimise!</p>
+<blockquote><p>Rules of Optimization by MA Jackson:</p>
+<p>Rule 1: Don't do it.<br />
+Rule 2 (for experts only): Don't do it yet.</p></blockquote>

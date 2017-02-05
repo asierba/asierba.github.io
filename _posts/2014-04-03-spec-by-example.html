@@ -1,0 +1,38 @@
+---
+layout: post
+title: Specification by example
+date: 2014-04-03 22:04:08.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- agile
+- businees
+- reading-list
+tags:
+- bdd
+- testing
+---
+<p>Last week me and my colleague  <a href="https://twitter.com/Irokhes">Jorge </a>went to <a href="http://agiliaconference.com/2014/en">Agilia conferenc</a>e in Brno, Czech Republic. The conference was on average good, but what we really enjoyed was the<strong> Specification by Example workshop </strong>we attended after the conference.</p>
+<p>It was a 2-days course given by the great <a href="http://gojko.net/about/">Gojko Adzic</a>. He went through it with explanations of what Specification by Example is, how we should apply it at work and which are the benefits of it. We alternated that with several team exercises and many coffee breaks :) We also learnt how to write good and bad specs. At the end of it he told us about the <a href="http://gojko.net/2012/05/08/redefining-software-quality/">real software quality</a> and even gave us an introduction to <a href="http://impactmapping.org/">Impact mapping</a>!</p>
+<p><a href="http://asierba.files.wordpress.com/2014/05/41yui84aszl-_sl500_aa300_.jpg"><img class="size-full wp-image-254 aligncenter" src="{{ site.baseurl }}/assets/41yui84aszl-_sl500_aa300_.jpg" alt="41yUI84ASzL._SL500_AA300_" width="300" height="300" /></a></p>
+<h1>So what's Specification by example?</h1>
+<p><a href="http://en.wikipedia.org/wiki/Specification_by_example">Specification by example</a> is a technique which brings together the requirements gathering and QA testing processes in the software development cycle. It is also knows as <a href="http://testobsessed.com/2008/12/acceptance-test-driven-development-atdd-an-overview/">ATDD </a>or even BDD, but <a href="http://asierba.wordpress.com/2013/09/21/bdd-is-not-automating-acceptant-tests/">I don't really agree with the last terminology</a>..</p>
+<p>Basically it is a way of writing specifications collaboratively  which are then converted to automated  acceptance tests.</p>
+<h1>How does it work?</h1>
+<p>Testers, developers and business people will get together in one room and will write specifications for the new features that they want to implement. In order to do that they will get separated into different teams, get a white board each and write examples of how the system should be working after the new features have been implemented. Once all the teams are done they will get together and compare the examples, look for differences and agree in some common ones.</p>
+<p>[caption id="258" align="aligncenter" width="398"]<a href="http://asierba.files.wordpress.com/2014/05/asa.png"><img class="wp-image-258 size-full" src="{{ site.baseurl }}/assets/asa.png" alt="Spec in Gherkin format" width="398" height="295" /></a> Spec in Gherkin format[/caption]</p>
+<p>After the team workshop is over, testers will take those examples and automate them with a tool like <a href="http://cukes.info/">cucumber</a> or <a href="http://www.fitnesse.org/">fitness</a>. Developers will implement the features and will know they are finished when these tests pass. These tests will run against the actual system frequently. If tests got automated before the development work starts this is know as Acceptance Test Driven Development, the same as TDD but from a 'higher' point of view :)</p>
+<p>It is not really necessary to do the whole team workshop, but it is the most effective way. However, sometimes it won't be easy to get all those people at the same room and just bringing together one tester, one developer and somebody from business will do it - the <a href="http://www.scrumalliance.org/community/articles/2013/2013-april/introducing-the-three-amigos">three amigos</a> way. At other occasions the team will be distributed, one person writing the spec and the another one or two reviewing it may work.</p>
+<h1>Which are the benefits?</h1>
+<p>The two main benefits brought by specification by example are having a <strong>single source of truth</strong> and getting a <strong>quicker feedback</strong>.</p>
+<p>The examples are requirements and also tests. What is written in the requirements is automated as tests and run against the actual system. If a requirement changes the test will change and the system will have to, if we add a new requirement there will be a new test and the system will have to change to make it pass. Basically, what is specified in the requirements it is what the system does! No more requirements document and qa test that differ. The examples are the <em>single source </em>and we know they say <em>the truth</em> because they are automated and run against the system frequently. This is known as the <a href="https://www.relishapp.com/relish/relish/docs/living-documentation"><em>Living documentation</em></a>.</p>
+<p>The good thing of bringing together business people, developers and testers is that we will spot things much earlier in the process. Instead of waiting to solve misunderstandings once the development work has been finished we can bring forward this feedback to the point were requirements are gathered. Handing over documents from Business Analyst to developers and then to testers is not the good way to do it, many times things will get lost and won't be spotted till the testing phase or sometimes even production! Put everybody together before the development work starts and many communication issues will get solved in no time, rather than waiting till the end of the iteration.</p>
+<p>Another key benefit of the workshops is that they will bring a better understanding of the actual system to everybody and will help modelling it. When writing the specs collaboratively everybody will get to a common language which then can be used when developing the system, documenting it or at any further discussions later on so there are no terminology misunderstandings - this is known as the <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous Language.</a></p>
+<blockquote class="twitter-tweet" data-lang="en-gb"><p lang="en" dir="ltr">how to write good automated tests: specs should explain only what is tested, not how. automation should explain how. <a href="http://t.co/GkVikNu2qb">pic.twitter.com/GkVikNu2qb</a></p>&mdash; Gojko Adzic (@gojkoadzic) <a href="https://twitter.com/gojkoadzic/status/449474529883332608">28 March 2014</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>&nbsp;</p>
+<p>I kind of knew about specification by example before the course and we were already doing in it a certain way at work with the <a href="http://www.scrumalliance.org/community/articles/2013/2013-april/introducing-the-three-amigos">three amigos</a> way, but not properly. I hadn't heard about the team workshop and I find it quite interesting to be honest. I would like to try it. I just need to convince business people :)</p>
+<p>As a feedback about the course I would say it was awesome! It was presented in a quite entertaining way. Challenging and fun team exercises in between engaging talks from Gojko with real life cases from his work as consultant. At the end we got a about 10-page document that summarizes everything. I am planning to <a href="http://www.amazon.co.uk/Specification-Example-Successful-Deliver-Software/dp/1617290084">get the book</a> and learn more about it.</p>
+<p>Maybe the one about <a href="http://www.amazon.co.uk/Impact-Mapping-software-products-projects-ebook/dp/B009KWDKVA">Impact mapping</a> too.. sounds quite interesting!</p>
+<p>&nbsp;</p>

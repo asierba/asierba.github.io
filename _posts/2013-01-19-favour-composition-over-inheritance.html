@@ -1,0 +1,81 @@
+---
+layout: post
+title: Favour composition over inheritance
+date: 2013-01-19 14:52:26.000000000 +00:00
+type: post
+published: true
+status: publish
+categories:
+- reading-list
+- Software Craftsmanship
+tags:
+- Clean Code
+- Red grade
+---
+<p>The 4th principle from the <a href="http://asierba.wordpress.com/2012/12/08/clean-code-development-red-grade/">red grade </a>in the <a href="http://asierba.wordpress.com/2012/12/04/clean-code-development/">clean code development grade system</a> says (from <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance">wikipedia</a>):</p>
+<blockquote><p><strong>Composition over inheritance</strong> (or Composite Reuse Principle) in object-oriented programming is a technique by which classes may achieve polymorphic behaviour and code reuse by containing other classes that implement the desired functionality instead of through inheritance.</p></blockquote>
+<p><strong>Inheritance</strong> is used in object-oriented programming as a way to reuse code through different objects.  We can define parent-children object structures, so methods an variables are passed from the parents to their children - the code is inherited. This is a powerful mechanism to avoid code replication - to be <a href="http://asierba.wordpress.com/2012/12/11/dry-dont-repeat-yourself/">DRY</a>-, but it has its drawbacks.</p>
+<p style="text-align:center;"><a href="http://asierba.files.wordpress.com/2013/01/img73.gif"><img class=" wp-image-108 aligncenter" alt="img73" src="{{ site.baseurl }}/assets/img73.gif" width="367" height="233" /></a></p>
+<p>The problem is that in a parent-children structure,  children are dependent of their parent. If a behaviour in a parent changes all its children's behaviours will automatically change. Or if a new behaviour is added to the parent all the children will inherit that behaviour too. Sometimes this is not what we really want. Let's see why.</p>
+<p>I am going to use an example from the first chapter of the book <a href="http://www.amazon.co.uk/Head-First-Design-Patterns-Freeman/dp/0596007124">head first design patterns</a>.</p>
+<p><a href="http://www.amazon.co.uk/Head-First-Design-Patterns-Freeman/dp/0596007124"><img class="aligncenter" alt="head_first_design_pattern" src="{{ site.baseurl }}/assets/head_first_design_pattern.jpg" width="240" height="278" /></a></p>
+<p>In the example, the user wants to build an application which deals with different types of ducks. Every duck flies, swims, and quacks, so in order to reuse those behaviours a <em>Duck</em> super-type is created with the methods <em>quack, swim </em>and <em>fly</em>. Every duck in the system will inherit from the <em>Duck</em> class and therefore inherit those behaviours too.</p>
+<p><a href="http://asierba.files.wordpress.com/2013/01/intialdesign2_itwbm.jpg"><img class="size-full wp-image-97 aligncenter" alt="intialDesign2_itwbm" src="{{ site.baseurl }}/assets/intialdesign2_itwbm.jpg" width="296" height="274" /></a></p>
+<p>The problem comes when a new type of duck is introduced into the system which is not supposed to fly: the <em>RubberDuck</em>. If we make this new type to inherit from <em>Duck, we</em> will make the rubber duck fly! That's wrong.. But if we don't use inheritance we will have to replicate the <em>quack and swim</em> methods! That's not really DRY.. So what should we do??</p>
+<p>The solution to this is to use <strong>composition </strong>for the code reuse instead of inheritance. Each of the behaviour that a duck could need -quack, swim, fly - will be separated into a new class -<em>QuackBehaviour, SwimBehavour, FlyBehaviour</em>. Then, each different duck type will use just the needed behaviours.</p>
+<p>The code will look like this:</p>
+
+{% highlight csharp %}
+public abstract class Duck
+{
+    protected IFlyBehavior flyer;
+    public virtual void DoFly()
+    {
+        this.flyer.Fly();
+    }
+}
+
+public class MallarDuck
+{
+    public RubberDuck()
+    {
+        flybehaviour = new DoesntFlyBehaviour();
+    }
+}
+
+public class RubberDuck
+{
+    public RubberDuck()
+    {
+        flybehaviour = new DoesntFlyBehaviour();
+    }
+}
+
+public interface IFlyBehavior
+{
+    public void Fly();
+}
+
+public class FlyWtihWingsBehaviour: IFlyBehavior
+{
+    public void Fly()
+    {
+        // Flying coe
+    }
+}
+
+public class DoesntFlyBehaviour: IFlyBehavior
+{
+    public void Fly()
+    {
+        // Do nothing
+    }
+}
+{% endhighlight %}
+
+<p>The example in the book goes deeper and ends up using the <a href="http://en.wikipedia.org/wiki/Strategy_pattern">Strategy Pattern</a>. I recommend reading that first chapter and the rest of the book if interested. I quite like it, it does not just go about design patterns, but also about main oo principles and why these patterns exist. Also, the first chapter is free in <em>amazon's look inside</em> or as a sample for the <em>kindle</em>!</p>
+<p>In conclusion, inheritance it's a good way of keeping our code clean and<a href="http://asierba.wordpress.com/2012/12/11/dry-dont-repeat-yourself/"> DRY</a>, but it makes sub-classes coupled to their super-classes. Use composition instead  of inheritance if possible.</p>
+<p style="text-align:center;"><a href="http://asierba.files.wordpress.com/2013/01/head_first_design_pattern-copy.jpg"><img alt="head_first_design_pattern - Copy" src="{{ site.baseurl }}/assets/head_first_design_pattern-copy.jpg" width="157" height="82" /></a></p>
+<p>As it says in the book cover, do as Jim and <a href="http://www.codinghorror.com/blog/2004/08/inherits-nothing.html"><strong>cut down your inheritance</strong></a>!  ;)</p>
+<p><span style="color:#000000;font-family:Consolas, 'Courier New', Courier, monospace;line-height:19.015625px;white-space:pre;background-color:#f9f9f9;"> </span></p>
+<p><span style="color:#000000;font-family:Consolas, 'Courier New', Courier, monospace;line-height:19.015625px;white-space:pre;background-color:#f9f9f9;"> </span></p>
