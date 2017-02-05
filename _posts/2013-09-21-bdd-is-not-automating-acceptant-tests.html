@@ -1,0 +1,46 @@
+---
+layout: post
+title: BDD is not automating acceptant tests
+date: 2013-09-21 10:37:54.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Antipatterns
+tags:
+- bdd
+- testing
+---
+<p>Over the years I have met many who think erroneously that <strong>BDD</strong> means writing acceptance test and then automating them with a tool like <a href="http://cukes.info/">cucumber</a>.</p>
+<p>BDD or <a href="http://dannorth.net/introducing-bdd/">Behaviour Driver Development</a> was brought by Dan North as a layer on top of TDD to emphasize that we should focus on <strong>behaviour</strong> when writing our tests.</p>
+<p>There are two types of frameworks to do so. There are the ones based on  <a href="https://github.com/cucumber/cucumber/wiki/Gherkin">Gherkin </a>syntax like <a href="http://jbehave.org/">JBehave</a>, Cucumber or Specflow . And there are the ones based on context/specification syntax like <a href="http://rspec.info/">RSpec</a>, NSpec or MSpec.</p>
+<p>Here two examples of both syntax:</p>
+<p><strong>Gherkin</strong></p>
+<blockquote><p>Scenario 1: Account is in credit<br />
+<em>Given</em> the account is in credit<br />
+<em>And</em> the card is valid<br />
+<em>And</em> the dispenser contains cash<br />
+<em>When</em> the customer requests cash<br />
+<em>Then</em> ensure the account is debited<br />
+<em>And</em> ensure cash is dispensed<br />
+<em>And</em> ensure the card is returned</p></blockquote>
+<p><strong>Context/Specifcation - Rspec</strong></p>
+<blockquote>
+<pre>describe Bowling, "#score" do
+  it "returns 0 for all gutter game" do
+    bowling = Bowling.new
+    20.times { bowling.hit(0) }
+    bowling.score.should eq(0)
+  end
+end</pre>
+</blockquote>
+<p>The point of these frameworks is too think on <strong>behaviour</strong> when writing a test case instead of just testing a method with certain inputs and expecting some other outputs.</p>
+<p>Usually, the ones based on gherkin are used to write acceptance tests and the context/specification ones for the unit test level. Somehow, the first ones with cucumber have become more popular and when you talk to anybody about BDD they will think about Given-Then-When, cucumber and acceptance testing. But this is wrong!</p>
+<p>BDD is not just for acceptance testing, we already had <a href="http://en.wikipedia.org/wiki/Specification_by_example">ATDD </a>for our acceptance tests. BDD is a layer on top of both TDD and ATDD. And it's intend is to focus on <strong>BEHAVIOUR</strong> so we can do good TDD. Don't forget xSpec frameworks, they are also BDD frameworks! Don't think BDD = ATDD or acceptance tests!</p>
+<h4>+ Info and sources:</h4>
+<p>There are a couple of good blog post on stack over flow talking about this matter:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/3359327/atdd-versus-bdd-and-the-proper-use-of-a-framework#5626697">http://stackoverflow.com/questions/3359327/atdd-versus-bdd-and-the-proper-use-of-a-framework#5626697</a></li>
+<li><a href="http://stackoverflow.com/questions/767439/are-bdd-tests-acceptance-tests">http://stackoverflow.com/questions/767439/are-bdd-tests-acceptance-tests</a></li>
+</ul>
+<p>And recently I watched the talk <a href="http://vimeo.com/68375232">TDD, where did it all go wrong</a> by Ian Cooper where he talks about the problem with TDD and that we should focus more on behaviour. I recommend to watch in it.</p>

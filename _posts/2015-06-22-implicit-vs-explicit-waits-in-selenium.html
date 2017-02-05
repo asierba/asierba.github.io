@@ -1,0 +1,43 @@
+---
+layout: post
+title: Implicit vs Explicit Waits in selenium
+date: 2015-06-22 22:14:11.000000000 +01:00
+type: post
+published: true
+status: publish
+categories: []
+tags:
+- code
+- testing
+---
+<p>The last few days at work we have been fixing some intermittently failing tests in <a href="http://www.seleniumhq.org/">selenium</a>. In the process I came to learn the difference between implicit and explicit waits.</p>
+<p><strong>The needs of waits.</strong><br />
+When running a test against an application UI sometimes you  need to wait for an element to be present. This could be due to the whole interface taking time to fully load or just a small part of it.</p>
+<p>When we jumped to fix these tests we saw that they were doing what they mean-to and that the application was really doing what the tests said, but the problem was down to page or elements or the page loading slower that expected. Waits would be our allies in our battle.</p>
+<p><strong>Two types of waits</strong><br />
+There are two type of waits you can use in Selenium: implicit and explicit waits.</p>
+<ul>
+<li><strong>Implicit waits</strong> are defined for the <strong>whole test suite</strong>.<br />
+Every time the selenium driver tries to find an element on a page it will wait a certain amount of time before throwing an element not found error.<br />
+By default the implicit wait is 0, this means the driver won't wait at all.<br />
+This is how you define the implicit wait of 3 seconds:<br />
+[sourcecode language="csharp"]Driver.Manage().Timeouts()<br />
+.ImplicitlyWait(TimeSpan.FromSeconds(3));[/sourcecode]<br />
+Each time the driver looks for an element (i.e using Driver.FindElement(..)) it will wait 3 seconds before failing. <em>If it finds it before it will continue with the test run.</em></li>
+<li>
+<p><strong>Explicit waits</strong> are defined just for a <strong>single purpose</strong>.<br />
+For example we could wait for a progress bar to finish, a pop up to hide or an element to render.<br />
+This is how you define an explicit wait for the body element of 5 seconds:<br />
+[sourcecode language="csharp"]var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));<br />
+wait.Until(d =&gt; d.FindElement(By.TagName(&quot;body&quot;)));[/sourcecode]<br />
+If the driver doesn't find the html "body" element in the page within 5 seconds it will throw an exception. <em>If it finds it before it will continue with the test run.</em></p>
+</li>
+</ul>
+<p>For both cases the driver will constantly check for UI changes. If the the element is present before the time it will continue, it won't keep waiting.</p>
+<p><strong>Favour explicit over implicit waits</strong><br />
+By rule of thumbs you should favour explicit waits over implicit. If your tests is failing because certain element takes time to load add a explicit wait for that element. You could also fix the problem adding an implicit wait, but that would affect the whole test suite and make tests slower and you wouldn't be addressing the underlying problem.<br />
+In the other hand, sometimes the whole website could be slow and pages would always take a few seconds to load. In those cases it's ok to add implicit waits, but I wouldn't recommend any more than 2-3 seconds.</p>
+<p>[+] info:</p>
+<ul>
+<li>There is a good definition of implicit and explict waits in the selenium documentation web site: http://docs.seleniumhq.org/docs/04_webdriver_advanced.jsp</li>
+</ul>

@@ -1,0 +1,20 @@
+---
+layout: post
+title: Lasagne Pattern
+date: 2014-11-06 23:43:00.000000000 +00:00
+type: post
+published: true
+status: publish
+categories:
+- Antipatterns
+tags:
+- code
+---
+<p>If you have a mess in your code where methods are being called from one place to another in such a way where is really difficult to follow the flow of the program execution this is known as <a href="http://en.wikipedia.org/wiki/Spaghetti_code">Spaghetti code</a>. Following with the Italian cuisine allegory, if you have<strong> too many layers of abstractions</strong> this is known as the <strong>Lasgane Pattern</strong>.</p>
+<p><img class="size-medium wp-image-325 aligncenter" src="{{ site.baseurl }}/assets/lasagne-alla-bolognese-hem1.jpg?w=300" alt="lasagne-alla-bolognese-HEM1" width="300" height="204" /></p>
+<p>I am just surprised how many times I have seen this <strong>anti-pattern</strong> in place! It's typical in client server applications where programmers have learnt about the importance of a <a href="http://en.wikipedia.org/wiki/Multitier_architecture">N-layer architecture</a> and with a bit of <a href="http://en.wikipedia.org/wiki/Cargo_cult_programming">cargo cult programming</a> they end up overusing it.</p>
+<p>In software, a n-layer architecture it's a way of separating the code of an application in different components or modules. The code will be separated around different concerns. The typical separation of components is presentation, data access and business logic. If we are talking about a server-client application another component will be added to deal with the communication between both. If you draw an image with all the components like layers one above the other with the database at the bottom and the UI on top, it looks like a <em>n layered or multi tier architecture</em>. We can draw arrows from the presentation layer to the database to see the flow of the actions.</p>
+<p><a href="https://asierba.files.wordpress.com/2014/11/3tier_webservice_2.jpg"><img class="size-medium wp-image-322 aligncenter" src="{{ site.baseurl }}/assets/3tier_webservice_2.jpg?w=207" alt="3tier_WebService_2" width="207" height="300" /></a></p>
+<p>This is a good pattern and basically almost everybody follows it. The problem is when developers start adding layers just for the sake of adding layers! <em>One layer more for the cache, another one for the application etc.</em> Then you end up with loads of layers and many of them doing nothing, just delegating calls to the underlying layer.. To make it even worse different type of objects will be used between layers (Entities, DTOs, ViewModels, Ducks, Chickens..) with the extra work of having to map from one to another. If you add to this the need to unit test every single layer you will end up with a lot of work to do just to get a single record from the database!!</p>
+<p>If you are not careful a misused n-layered architecture can bring a lot of unnecessary complexity. My advise is to use the least amount of layers possible (And store procedures are considered a layer). Don't put layers <em>just in case</em>, software is cheap to change later on. Yes.. I know, architecture is not <em>that</em> easy too change, but still it can be done, try to deffer that decision as much as possible (maybe you can do some prototyping?) and be wary about layers.</p>
+<p><em>Reference: I don't know who came with the name, but I heard about this anti pattern first time in <a href="http://blog.codinghorror.com/new-programming-jargon/">coding horror</a>. Though there is called <strong>Baklava Code</strong>.</em></p>
