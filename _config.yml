@@ -8,3 +8,5 @@ github_username:  asierba
 
 # Build settings
 markdown: kramdown
+
+permalink:    /:year/:month/:day/:title/
