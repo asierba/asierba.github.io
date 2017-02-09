@@ -1,8 +1,6 @@
 ---
 layout: post
 title:  "Judge the code, not the developer"
-date:   2015-10-15 18:13:47
-categories: code
 ---
 
 I've been paying attention recently to conversations we have at work. I can hear people complaining about the code, how bad it is, not readable, difficult to make changes.. They will refer to the people who wrote it. And I do it too! Even if we don't know who wrote it. It doesn't matter, is 'us' and 'then'.
