@@ -10,3 +10,5 @@ github_username:  asierba
 markdown: kramdown
 
 permalink:    /:year/:month/:day/:title/
+
+exclude: [node_modules, gulpfile.js]
