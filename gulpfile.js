@@ -8,6 +8,7 @@ var browserSync = require('browser-sync').create();
 // gulp.task('build', shell.task(['bundle exec jekyll build --watch']));
 // Or if you don't use bundle:
 gulp.task('build', shell.task(['jekyll build --watch --draft']));
+gulp.task('build:no-draft', shell.task(['jekyll build --watch']));
 
 // Task for serving blog with Browsersync
 gulp.task('serve', function () {
@@ -17,3 +18,4 @@ gulp.task('serve', function () {
 });
 
 gulp.task('default', ['build', 'serve']);
+gulp.task('no-draft', ['build:no-draft', 'serve']);
