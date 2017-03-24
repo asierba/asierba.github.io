@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Active recall and paced repetition"
+title:  "Active recall and spaced repetition"
 ---
 
 As a software developer we are always learning. There are new technologies, libraries, frameworks, languages, practices, platforms and whatnot coming out every day! Our industry is changing so fast that is quite hard to keep up with it.
