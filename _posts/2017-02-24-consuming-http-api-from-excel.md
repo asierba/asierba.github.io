@@ -70,7 +70,7 @@ Then you can just from excel point to that endpoint using [power query](https://
 
 To do that just open excel and go to *Data -> New Query -> From Other Sources -> From Web*. You will get a form with and input for the url. Specify the url of your endpoint and excel will fetch the data from it and come back with a list of records.
 
-![power query list of records]({{ site.url }}/assets/power-query-1.png)
+![power query list of records]({{site.baseurl}}/assets/power-query-1.png){: .center-image }
 
 Now you have to convert this to a table click the *To Table* icon.
 After that click in the expand icon to get all the properties of the elements in your json (I recommend deselecting *Use original column names as prefix*).
@@ -79,7 +79,7 @@ Finally if you click the icon "Close & Load" that table will be copied into your
 
 You should get a table similar to this:
 
-![power query table]({{ site.url }}/assets/power-query-2.png)
+![power query table]({{site.baseurl}}/assets/power-query-2.png){: .center-image }
 
 *By the way, I am using excel 2016. I'm not sure if this works with earlier versions.*
 
@@ -120,11 +120,11 @@ This endpoint uses version 4  of OData, which is the latest at the moment.
 
 Excel will recognise all the resources available and it will give you the option to convert any of them to a table.
 
-![power query odata setup]({{ site.url }}/assets/power-query-odata-1.png)
+![power query odata setup]({{site.baseurl}}/assets/power-query-odata-1.png){: .center-image }
 
 Once you pick one and click *Load* it will be in your spreadsheet. 
 
-![power query odata table]({{ site.url }}/assets/power-query-odata-2.png)
+![power query odata table]({{site.baseurl}}/assets/power-query-odata-2.png){: .center-image }
 
 From now on everything is the same as before. You can filter, sort, create pivot tables, customise your query.. in esence is power query, so you should get the same capabilities.
 
@@ -134,7 +134,7 @@ If you go to edit the query and filter one of the columns excel will use an odat
 
 So for example if we edit the query and filter the column *LastName* for *Bright*.
 
-![power query odata filtering]({{ site.url }}/assets/power-query-odata-3.png)
+![power query odata filtering]({{site.baseurl}}/assets/power-query-odata-3.png){: .center-image }
 
 This is what it gets fired to the backend each time we refresh the view:
 	
@@ -153,7 +153,8 @@ First, all the endpoints have to specify the odata version in the response heade
 Second, you have to define the shape of the data for each of your resources in xml format under /$metadata. For example in our previous example we will have something like this:
 
 **/$metadata**
-~~~
+
+{% highlight xml %}
 <edmx:Edmx>
 <edmx:DataServices>
 <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
@@ -176,14 +177,14 @@ Second, you have to define the shape of the data for each of your resources in x
 </Schema>
 </edmx:DataServices>
 </edmx:Edmx>
-~~~
+{% endhighlight %}
 
 From every endpoint we will have to reference that metadata with the property `@odata.context`. 
 
 Next, we will have to define a root resource that is going to point all the available resources. This is know as the *service root* in odata terms. Luckily odata allows xml and json format for everythting other than the metadata, so let's use json:
 
 **/**
-~~~
+{% highlight json %}
 {
     @odata.context: "http://localhost/$metadata",
     value: [
@@ -194,14 +195,14 @@ Next, we will have to define a root resource that is going to point all the avai
         }
     ]
 }
-~~~
+{% endhighlight %}
 Unfortunately the link to the metadata just works with absolute paths, if you use the relative path excel will give you an error.
 
 Finally, we need the actual resource:
 
 **/rows**
 
-~~~
+{% highlight json %}
 {
     @odata.context: "http://localhost/$metadata#rows",
     value: [    
@@ -230,7 +231,7 @@ Finally, we need the actual resource:
         ]
 }
 
-~~~
+{% endhighlight %}
 We append the resource name at the end of the link to the metadata with the '#' sing.
 
 The actual data goes into `value`, there is nothing special about it.
