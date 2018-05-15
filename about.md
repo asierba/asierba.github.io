@@ -6,7 +6,7 @@ permalink: /about/
 
 I am Asier Barrenetxea. I live in London.
 
-I have been a **software developer** professionally for the last 8 years, but I have been programming just for fun from a long-long time ago!
+I have been a **software developer** professionally for a decade, but I have been programming just for fun from a long-long time ago!
 
 I love Agile, TDD and Clean code. But over all the [software craftsmanship movement](http://manifesto.softwarecraftsmanship.org/).
 
