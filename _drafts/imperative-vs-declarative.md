@@ -5,7 +5,9 @@ title:  "Imperative vs Declarative"
 
 *This is part of a [blog post series]({% post_url 2018-08-14-functional-programming %}) I am writing about functional programming.*
 
-**Imperative** and **Declarative** programming are two different styles we can use when writing code. I would use a simple example to show the differences: we will write a function that takes an array of numbers and returns the sum all of them:
+**Imperative** and **Declarative** programming are two different styles we can use when writing code. Let's use an example to understand each style.
+
+We will write a function that takes an array of numbers and returns the sum all of them:
 
 {% highlight c# %}
 [Fact]
@@ -16,7 +18,8 @@ public void Test()
 }
 {% endhighlight %}
 
-Imperative:
+Imperative
+===
 {% highlight c# %}
 int Sum(int[] numbers)
 {
@@ -28,49 +31,29 @@ int Sum(int[] numbers)
     return result;
 }
 {% endhighlight %}
-In the imperative style we will create a result variable initialized as 0 and then we will loop through the array. For each element in the array we will **mutate** the result variable appending the current element to it. At the end we return that result.
+In the imperative style we create a result variable initialized as 0 and then loop through the array. For each element in the array we will **mutate** the result variable appending the current element to it. At the end we return that result.
 
-Declarative:
+Declarative
+===
 {% highlight c# %}
 int Sum(int[] numbers)
 {
     return numbers.Aggregate(0, (result, number) => result + number);
 }
 {% endhighlight %}
-In the declarative style we take the array of numbers and *Aggregate* then using a simple sum. To achieve this we use the Aggregate function from [C# linq](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq). The function takes an initial value, the seed, which is 0 in our case. 
+In the declarative style we take the array of numbers and *Aggregate* then using a simple sum. To achieve this we use the Aggregate function from [C# linq](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq). The function takes an initial value -the seed- which is 0 in our case. 
 I kept the same variable names as in the declarative style so we can compare then easily.
 
-I find the declarative style **more expressive** than the imperative one. The declarative code tels *WHAT* my code is doing while the imperative tells me about the *HOW* is it doing it and then I have to infer the WHAT from there. I don't really care about the how, I just care about the what!
+
+<sub>*DISCLAIMERS: The seed in this is optional in Aggregate so it could be omitted in the example since the default of int in C# is 0. There is already a [Sum function in Linq](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.sum?redirectedfrom=MSDN&view=netframework-4.7.2#overloads) which could simplify this code, but this is not goal of this blogpost, I just wanted to compare both styles.*</sub>
+
+
+What vs How
+===
+The declarative style is **more expressive** than the imperative one. The declarative code tells *WHAT* my code is doing while the imperative tells me about *HOW* my code is achieveing something. When reading the imperative code I have to infer the WHAT from it. This is a problem. I don't really care about the how, I just care about the what!
+
+Declarative code is functional
+===
 Another big drawback of imperative programming is that it forces you to relay a lot on mutation and loops, two things that we won't be able to use when working with pure functional languages.
 
-When I started programming I wrote just write imperative programming: whiles, do-whiles, fors, foreachs every where. That's how I learned to program! Nowadays I try to write 0 loops, I really like using C# linq or all the function on top of array from ES6.
-
-Before we leave, let's dig in into that Sum function...
-
-Actually that seed is optional and we can omit it, because int's default value is 0 in C#.
-{% highlight c# %}
-int Sum(int[] numbers)
-{
-    return numbers.Aggregate((result, number) => result + number);
-}
-{% endhighlight %}
-
-{% highlight c# %}
-int Sum(int[] numbers)
-{
-    return numbers.Aggregate(Sum);
-}
-
-private static int Sum(int left, int right)
-{
-    return left + right;
-}
-{% endhighlight %}
-
-
-
-
-TODO: 
-- link from functional-programing to imperative-vs-declarative
-- links from imperative-vs-declarative to mutate
-- links from imperative-vs-declarative to no loops
+If you want to start embracing functional programming I would say that the first step will be to start using the declarative still as much as possible. Every modern language has ..
