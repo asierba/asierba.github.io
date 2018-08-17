@@ -9,7 +9,7 @@ I see a huge benefit on embracing ideas from the functional paradigm, even when 
 In the following days I am going to write a few blog posts to describe how my style has changed and why I think that's beneficial.
 
 These are the contents I am planning to through: 
-* Imperative vs Declarative
+* [Imperative vs Declarative]({% post_url 2018-08-17-imperative-vs-declarative %})  
 * Immutability
 * No loops
 * Option type - no nulls
