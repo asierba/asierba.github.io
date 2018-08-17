@@ -7,7 +7,7 @@ title:  "Imperative vs Declarative"
 
 **Imperative** and **Declarative** programming are two different styles we can use when writing code. Let's use an example to understand each style.
 
-We will write a function that takes an array of numbers and returns the sum all of them:
+We will write a function that takes an array of numbers and returns the sum of all of them:
 
 {% highlight c# %}
 [Fact]
@@ -47,12 +47,12 @@ The function takes an initial value -the seed- which is 0 in our case. I kept th
 By the way, Aggregate is usually called *reduce* in other languages, it's just microsoft trying to be different..
 
 
-<sub>*DISCLAIMERS: The seed in Aggregate is optional, so it could be omitted in the example since the default of int in C# is 0. Also, there is already a [Sum function in Linq](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.sum?redirectedfrom=MSDN&view=netframework-4.7.2#overloads) which could simplify this code, but this is not goal of this blogpost, I just wanted to compare both styles.*</sub>
+<sub>*DISCLAIMERS: The seed in Aggregate is optional, so it could be omitted in the example since the default of int in C# is 0. Also, there is already a [Sum function in Linq](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.sum?redirectedfrom=MSDN&view=netframework-4.7.2#overloads) which could simplify this code, but this is not the goal of this blogpost, I just wanted to compare both styles.*</sub>
 
 
 What vs How
 ===
-The declarative style is **more expressive** than the imperative one. The declarative code tells *WHAT* my code is doing while the imperative tells me about *HOW* my code is achieveing something. When reading the imperative code I have to infer the WHAT from it. This is a problem. I don't really care about the how, I just care about the what!
+The declarative style is **more expressive** than the imperative one. The declarative code tells *WHAT* my code is doing while the imperative tells me *HOW* my code is achieving something. When reading the imperative code I have to infer the WHAT from it. This is a problem. I don't really care about the how, I just care about the what!
 
 Declarative code is functional
 ===
@@ -60,6 +60,6 @@ Another big drawback of imperative programming is that it forces you to relay a 
 
 First step towards functional
 ===
-If you want to start embracing functional programming I would say that the first step will be to start using the declarative still as much as possible. Every modern language has this capability nowadays: C# has [Linq]((https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq)), Java has the [Streams API](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html), Ruby has the [Enumerable module](https://ruby-doc.org/core-2.5.1/Enumerable.html), Javascript since ES6 [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) has has a good bunch of declarative methods, etc. 
+If you want to start embracing functional programming I would say that the first step will be to start using the declarative still as much as possible. Every modern language has this capability nowadays: C# has [Linq]((https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq)), Java has the [Streams API](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html), Ruby has the [Enumerable module](https://ruby-doc.org/core-2.5.1/Enumerable.html), Javascript since ES6 [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) has been extended with a good bunch of declarative methods, etc. 
 
 You can force yourself to write declarative style code by simpling following the rule of **writing no loops**. We will explore that in a later post.
