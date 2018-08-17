@@ -62,4 +62,4 @@ First step towards functional
 ===
 If you want to start embracing functional programming I would say that the first step will be to start using the declarative still as much as possible. Every modern language has this capability nowadays: C# has [Linq]((https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/getting-started-with-linq)), Java has the [Streams API](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html), Ruby has the [Enumerable module](https://ruby-doc.org/core-2.5.1/Enumerable.html), Javascript since ES6 [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) has has a good bunch of declarative methods, etc. 
 
-You can force yourself to write declarative style code by simpling following the rule of **writing no loops**.  
+You can force yourself to write declarative style code by simpling following the rule of **writing no loops**. We will explore that in a later post.
