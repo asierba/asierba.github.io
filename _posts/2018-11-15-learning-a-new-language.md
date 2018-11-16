@@ -11,7 +11,7 @@ When learning a new one this is the approach I tend to follow:
 To begin with I like getting a general overview of the language. Is this an object oriented language or function? static or dynamic? how is this language different from another? etc. 
 Wikipedia is a good place to start. Currently I am learning Java, so I would go to the [java wikipedia page](https://en.wikipedia.org/wiki/Java_(programming_language)).
 
-To have a first look to the syntax and language constructs I like having a look to the language at [Learn X in Y Minutes](learnxinyminutes.com). It's a website where you can quickly read through the basics of any language. It doesn't go deep, but it's a good start and it's based in code examples. Simple! Here the java version: https://learnxinyminutes.com/docs/java/
+To have a first look to the syntax and language constructs I like having a look to the language at [Learn X in Y Minutes](http://learnxinyminutes.com). It's a website where you can quickly read through the basics of any language. It doesn't go deep, but it's a good start and it's based in code examples. Simple! Here the java version: https://learnxinyminutes.com/docs/java/
 
 # Koans #
 Once I have a grasp of the language I like learning the basics by writing some code. I will look for koans for that. Koans are small set of exercises that will guide you into the basics of a language. Usually koans are a bunch of incomplete or failing unit tests that you will have to fix. For example I've been doing this [Java koans](https://github.com/matyb/java-koans) in the past few days.
