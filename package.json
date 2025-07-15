@@ -2,12 +2,9 @@
   "name": "asierba.github.io",
   "version": "1.0.0",
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gulp": "^3.9.1",
-    "gulp-shell": "^0.5.2",
-    "lodash": "^4.17.4"
+    "browser-sync": "^2.29.3",
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0"
   },
-  "dependencies": {
-    "natives": "^1.1.6"
-  }
+  "dependencies": {}
 }
